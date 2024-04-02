@@ -1,0 +1,1 @@
+../almost-mono-themes/almost-mono-gray-theme.el
