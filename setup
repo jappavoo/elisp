@@ -1,0 +1,33 @@
+#!/bin/bash
+set -u
+#set -x
+
+ts=$(date +%d%m%y-%T)
+
+function inst()
+{
+    local src=$1
+    local dst=$2
+
+    [[ -a $dst ]] && mv $dst ${dst}.old.$ts
+    cp -s $(realpath $src) $dst
+}
+
+function clone()
+{
+    local repo=$1
+    local dir=$2
+    local name=$(basename ${repo%.git})
+
+    [[ ! -d ${dir}/${name} ]] && (cd $dir; git clone $repo)
+    
+}
+
+inst emacs ~/.emacs
+inst workgroups ~/.emacs.d/workgroups
+inst jappavoo-theme.el ~/.emacs.d/jappavoo-theme.el
+
+clone git@github.com:cryon/almost-mono-themes.git ..
+clone git@github.com:fxn/monochrome-theme.el.git ..
+clone git@github.com:alpaker/fill-column-indicator.git ..
+clone git@github.com:tlh/workgroups.el.git ..
