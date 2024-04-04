@@ -65,7 +65,8 @@
 
    ;; Font lock faces
    `(font-lock-builtin-face ((,class (:foreground ,dgray))))
-   `(font-lock-comment-face ((,class (:slant italic :foreground ,lgray))))
+					;   `(font-lock-comment-face ((,class (:slant italic :foreground ,lgray))))
+   `(font-lock-comment-face ((,class (:slant italic :foreground ,black))))
    `(font-lock-constant-face ((,class (:weight bold :foreground ,dgray))))
    `(font-lock-function-name-face ((,class (:foreground ,black))))
    `(font-lock-keyword-face ((,class (:weight bold :foreground ,black))))

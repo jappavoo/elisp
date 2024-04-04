@@ -16,10 +16,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-; '(ansi-color-names-vector ["white" "#303030" "#b3b3b3" "#606060"])
  '(custom-enabled-themes '(jappavoo))
  '(custom-safe-themes
-   '("47fa1fac54c39b8a78cc449fe7db7f113e647952fdfdc13331a48796d02e4925" "cbd85ab34afb47003fa7f814a462c24affb1de81ebf172b78cb4e65186ba59d2" "bc3cfd8acc553abcc33e980bb564149f6fa5f072cdc04169dd0cc402067ce5d0" "f04dadbec011165cd40a7b8ae6cc0a5cc05cffdc8d69b9d4a921541d0f0b7cea" "ab164adc0f1a26ad8ca6558bbaade87105457ebd0cd58d7f157ae103ad9ed6e6" default))
+   '("2214a42e8b447e8b927302e19f9dd916f4272f4819857872d78d803f04d6968a" "934a7a44277c7dbc5cc552d18646de91067af33ad9257e100a66c5bb31dc7dd2" "47fa1fac54c39b8a78cc449fe7db7f113e647952fdfdc13331a48796d02e4925" "cbd85ab34afb47003fa7f814a462c24affb1de81ebf172b78cb4e65186ba59d2" "bc3cfd8acc553abcc33e980bb564149f6fa5f072cdc04169dd0cc402067ce5d0" "f04dadbec011165cd40a7b8ae6cc0a5cc05cffdc8d69b9d4a921541d0f0b7cea" "ab164adc0f1a26ad8ca6558bbaade87105457ebd0cd58d7f157ae103ad9ed6e6" default))
  '(ispell-dictionary nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -30,7 +29,11 @@
  '(compilation-info ((t (:background "white" :foreground "black" :weight bold))))
  '(compilation-mode-line-run ((t (:inherit compilation-warning :background "white" :foreground "black" :weight bold))))
  '(compilation-warning ((t (:inherit warning :background "white" :foreground "black"))))
+ '(match ((t (:underline t :slant italic :weight bold))))
  '(success ((t (:foreground "black" :weight bold))))
+ '(tty-menu-disabled-face ((t (:foreground "gray"))))
+ '(tty-menu-enabled-face ((t (:foreground "black" :weight bold))))
+ '(tty-menu-selected-face ((t (:background "black" :foreground "white"))))
  '(wg-brace-face ((t (:foreground "black"))))
  '(wg-command-face ((t (:foreground "black"))))
  '(wg-divider-face ((t (:foreground "black"))))
