@@ -42,9 +42,46 @@
  '(wg-mode-line-face ((t (:foreground "black"))))
  '(wg-previous-workgroup-face ((t (:foreground "color-238")))))
 
+;; From https://www.kernel.org/doc/html/v4.10/process/coding-style.html
+;; https://www.kernel.org/doc/html/v4.10/process/coding-style.html#you-ve-made-a-mess-of-it
+(defun c-lineup-arglist-tabs-only (ignored)
+  "Line up argument lists by tabs, not spaces"
+  (let* ((anchor (c-langelem-pos c-syntactic-element))
+         (column (c-langelem-2nd-pos c-syntactic-element))
+         (offset (- (1+ column) anchor))
+         (steps (floor offset c-basic-offset)))
+    (* (max steps 1)
+       c-basic-offset)))
+
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            ;; Add kernel style
+            (c-add-style
+             "linux-tabs-only"
+             '("linux" (c-offsets-alist
+                        (arglist-cont-nonempty
+                         c-lineup-gcc-asm-reg
+                         c-lineup-arglist-tabs-only))))))
+
+(add-hook 'c-mode-hook
+          (lambda ()
+            (let ((filename (buffer-file-name)))
+              ;; Enable kernel mode for the appropriate files
+              (when (and filename
+                         (string-match (expand-file-name "~/src/linux-trees")
+                                       filename))
+                (setq indent-tabs-mode t)
+                (setq show-trailing-whitespace t)
+                (c-set-style "linux-tabs-only")))))
+
+
 (define-key global-map (kbd "C-x p") 'previous-multiframe-window)
+(global-set-key (kbd "C-c <RET>") 'hs-toggle-hiding)
+(global-set-key (kbd "C-c h") 'hs-hide-all)
+(global-set-key (kbd "C-c s") 'hs-show-all)
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'prog-mode-hook 'hs-minor-mode)
 
 (setq fci-rule-column 80)
 (require 'fill-column-indicator)
