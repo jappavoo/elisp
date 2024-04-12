@@ -29,6 +29,8 @@
  '(compilation-info ((t (:background "white" :foreground "black" :weight bold))))
  '(compilation-mode-line-run ((t (:inherit compilation-warning :background "white" :foreground "black" :weight bold))))
  '(compilation-warning ((t (:inherit warning :background "white" :foreground "black"))))
+ '(custom-variable-obsolete ((t (:foreground "black"))))
+ '(font-lock-variable-name-face ((t (:foreground "black" :weight bold))))
  '(match ((t (:underline t :slant italic :weight bold))))
  '(sh-heredoc ((t (:foreground "black" :slant oblique))))
  '(sh-quoted-exec ((t (:foreground "black" :slant italic :weight bold))))
@@ -112,3 +114,5 @@
 (setq wg-morph-vsteps (* 6 wg-morph-vsteps))
 (setq wg-morph-terminal-hsteps wg-morph-hsteps)
 (setq wg-morph-terminal-vsteps wg-morph-vsteps)
+
+(server-start)
