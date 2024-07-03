@@ -32,3 +32,5 @@ clone git@github.com:fxn/monochrome-theme.el.git ..
 clone git@github.com:alpaker/fill-column-indicator.git ..
 clone git@github.com:tlh/workgroups.el.git ..
 clone https://github.com/caffo/monotropic-theme.git ..
+clone https://github.com/emacs-straight/queue.git ..
+clone https://gitlab.com/tsc25/undo-tree.git ..

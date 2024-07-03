@@ -115,4 +115,7 @@
 (setq wg-morph-terminal-hsteps wg-morph-hsteps)
 (setq wg-morph-terminal-vsteps wg-morph-vsteps)
 
+(require 'undo-tree)
+(global-undo-tree-mode)
+
 (server-start)
