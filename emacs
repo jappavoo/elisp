@@ -5,11 +5,17 @@
 ;; Put the induvidual theme files almost-mono-{black, white, etc.}-theme.el in your theme load path
 (add-to-list 'custom-theme-load-path "~/src/elisp")
 
+
+(require 'package)
+(add-to-list 'package-archives '("melpa", "http://melpa.org/packages"))
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 (package-initialize)
+(unless (package-installed-p 'use-package)
+	(package-install 'use-package))
+(require 'use-package)	
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -19,7 +25,8 @@
  '(custom-enabled-themes '(jappavoo))
  '(custom-safe-themes
    '("2214a42e8b447e8b927302e19f9dd916f4272f4819857872d78d803f04d6968a" "934a7a44277c7dbc5cc552d18646de91067af33ad9257e100a66c5bb31dc7dd2" "47fa1fac54c39b8a78cc449fe7db7f113e647952fdfdc13331a48796d02e4925" "cbd85ab34afb47003fa7f814a462c24affb1de81ebf172b78cb4e65186ba59d2" "bc3cfd8acc553abcc33e980bb564149f6fa5f072cdc04169dd0cc402067ce5d0" "f04dadbec011165cd40a7b8ae6cc0a5cc05cffdc8d69b9d4a921541d0f0b7cea" "ab164adc0f1a26ad8ca6558bbaade87105457ebd0cd58d7f157ae103ad9ed6e6" default))
- '(ispell-dictionary nil))
+ '(ispell-dictionary nil)
+ '(package-selected-packages '(auctex auxtex use-package lsp-grammarly flycheck)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -117,5 +124,9 @@
 
 (require 'undo-tree)
 (global-undo-tree-mode)
+
+(use-package auctex
+	     :ensure t)
+(require 'auctex)	     
 
 (server-start)
