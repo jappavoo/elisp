@@ -91,12 +91,12 @@
 
 
 (define-key global-map (kbd "C-x p") 'previous-multiframe-window)
-(global-set-key (kbd "C-c <RET>") 'hs-toggle-hiding)
+(global-set-key (kbd "C-<return>") 'hs-toggle-hiding)
 (global-set-key (kbd "C-c h") 'hs-hide-all)
 (global-set-key (kbd "C-c s") 'hs-show-all)
 (global-set-key (kbd "C-c f") 'global-text-scale-adjust)
 
-(global-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 
 (setq fci-rule-column 80)
