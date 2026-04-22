@@ -7,7 +7,7 @@
 
 
 (require 'package)
-(add-to-list 'package-archives '("melpa", "http://melpa.org/packages"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -17,19 +17,43 @@
 	(package-install 'use-package))
 (require 'use-package)	
 
+(unless (package-installed-p 'quelpa)
+      (with-temp-buffer
+        (url-insert-file-contents "https://raw.githubusercontent.com/quelpa/quelpa/master/quelpa.el")
+        (eval-buffer)
+        (quelpa-self-upgrade)))
+(require 'use-package-ensure)
+(use-package quelpa :ensure)
+(quelpa
+ '(quelpa-use-package
+   :fetcher git
+   :url "https://github.com/quelpa/quelpa-use-package.git"))
+(require 'quelpa-use-package)
+
+    
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(Man-notify-method 'pushy)
+ '(blink-cursor-mode nil)
  '(custom-enabled-themes '(jappavoo))
  '(custom-safe-themes
-   '("2214a42e8b447e8b927302e19f9dd916f4272f4819857872d78d803f04d6968a" "934a7a44277c7dbc5cc552d18646de91067af33ad9257e100a66c5bb31dc7dd2" "47fa1fac54c39b8a78cc449fe7db7f113e647952fdfdc13331a48796d02e4925" "cbd85ab34afb47003fa7f814a462c24affb1de81ebf172b78cb4e65186ba59d2" "bc3cfd8acc553abcc33e980bb564149f6fa5f072cdc04169dd0cc402067ce5d0" "f04dadbec011165cd40a7b8ae6cc0a5cc05cffdc8d69b9d4a921541d0f0b7cea" "ab164adc0f1a26ad8ca6558bbaade87105457ebd0cd58d7f157ae103ad9ed6e6" default))
+   '("2214a42e8b447e8b927302e19f9dd916f4272f4819857872d78d803f04d6968a"
+     "934a7a44277c7dbc5cc552d18646de91067af33ad9257e100a66c5bb31dc7dd2"
+     "47fa1fac54c39b8a78cc449fe7db7f113e647952fdfdc13331a48796d02e4925"
+     "cbd85ab34afb47003fa7f814a462c24affb1de81ebf172b78cb4e65186ba59d2"
+     "bc3cfd8acc553abcc33e980bb564149f6fa5f072cdc04169dd0cc402067ce5d0"
+     "f04dadbec011165cd40a7b8ae6cc0a5cc05cffdc8d69b9d4a921541d0f0b7cea"
+     "ab164adc0f1a26ad8ca6558bbaade87105457ebd0cd58d7f157ae103ad9ed6e6"
+     default))
  '(ispell-dictionary nil)
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(default-text-scale auctex auxtex use-package lsp-grammarly flycheck))
- '(tool-bar-mode nil))
+   '(auctex copilot copilot-chat f gptel markdown-mode quelpa-use-package))
+ '(tool-bar-mode nil)
+ '(warning-suppress-log-types '((auto-save))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -41,6 +65,7 @@
  '(compilation-warning ((t (:inherit warning :background "white" :foreground "black"))))
  '(custom-variable-obsolete ((t (:foreground "black"))))
  '(font-lock-variable-name-face ((t (:foreground "black" :weight bold))))
+ '(font-lock-warning-face ((t (:foreground "black" :underline t :slant italic :weight bold))))
  '(match ((t (:underline t :slant italic :weight bold))))
  '(sh-heredoc ((t (:foreground "black" :slant oblique))))
  '(sh-quoted-exec ((t (:foreground "black" :slant italic :weight bold))))
@@ -98,6 +123,7 @@
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook 'hs-minor-mode)
+(add-hook 'hs-minor-mode-hook '(lambda () (hs-hide-all)))
 
 (setq fci-rule-column 80)
 (require 'fill-column-indicator)
@@ -132,10 +158,37 @@
 (use-package auctex
 	     :ensure t)
 (require 'auctex)	     
+(require 'tex-site)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
 
 (use-package markdown-mode
   :ensure t
   :mode ("README\\.md\\'" . gfm-mode)
   :init (setq markdown-command "pandoc"))
 
+(use-package copilot
+  :quelpa (copilot :fetcher github
+                   :repo "copilot-emacs/copilot.el"
+                   :branch "main"
+                   :files ("*.el")))
+		   
+;; (add-hook 'prog-mode-hook 'copilot-mode)
+(define-key copilot-completion-map (kbd "C-<tab>") 'copilot-accept-completion)
+
 (server-start)
+(require 'tramp)
+
+;; Define a new method 'oc' that uses 'oc rsh'
+(add-to-list 'tramp-methods
+             '("oc"
+               (tramp-login-program "csw")
+               (tramp-login-args ((""))) ; %h is the pod name
+               (tramp-remote-shell "/bin/bash")
+               (tramp-remote-shell-args ("-l"))
+               (tramp-default-port 22))) ; Not strictly necessary
+
+;; Example usage:
+;; C-x C-f /oc::my-pod-name:/app/config.json
+

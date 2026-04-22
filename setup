@@ -34,3 +34,4 @@ clone git@github.com:tlh/workgroups.el.git ..
 clone https://github.com/caffo/monotropic-theme.git ..
 clone https://github.com/emacs-straight/queue.git ..
 clone https://gitlab.com/tsc25/undo-tree.git ..
+clone git@github.com:copilot-emacs/copilot.el.git ..
